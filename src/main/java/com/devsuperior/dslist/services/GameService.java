@@ -30,4 +30,12 @@ public class GameService {
                 .map(GameDTO::new)
                 .orElseThrow(() -> new RuntimeException(String.format("Game com id %d não encontrado", id)));
     }
+
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long listId) {
+        return gameRepository.searchByList(listId)
+                .stream()
+                .map(GameMinDTO::new)
+                .toList();
+    }
 }
